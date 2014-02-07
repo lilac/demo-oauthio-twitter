@@ -15,7 +15,7 @@ demoApp.config(function($routeProvider, $locationProvider) {
 
 
 demoApp.controller('connectCtrl', function connectCtrl($scope, $rootScope, $location) {
-	OAuth.initialize("~~~[[YOUR_OAUTH_IO_PUBLIC_KEY]]~~~");
+	OAuth.initialize("hOxmiXE3X55tcdK0kDbjd_YZ1G8");
 	$scope.connect = function() {
 		OAuth.popup("twitter", function(err, res) {
 			if (err) return alert(err);
@@ -27,8 +27,12 @@ demoApp.controller('connectCtrl', function connectCtrl($scope, $rootScope, $loca
 });
 
 demoApp.controller('timelineCtrl', function timelineCtrl($scope, $rootScope) {
-	$rootScope.twitter.get('/1.1/statuses/home_timeline.json').done(function(data) {
-		$scope.tw_timeline = data;
-		$scope.$apply();
+  $scope.search = function() {
+	$rootScope.twitter.get('/1.1/search/tweets.json', {data: {q: $scope.query}}).done(function(data) {
+    if (data.statuses) {
+      $scope.tw_timeline = data.statuses;
+      $scope.$apply();
+    }
 	});
+  };
 });

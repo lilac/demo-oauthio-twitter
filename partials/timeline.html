@@ -1,4 +1,8 @@
-
+ <form ng-submit="search()">
+        <input type="text" ng-model="query"  size="30"
+               placeholder="add query here">
+        <input class="btn-primary" type="submit" value="search">
+      </form>
 <ul id="timeline" ng-repeat="entry in tw_timeline">
 	<li>
 		<img class="thumb" src="{{entry.user.profile_image_url}}" />
